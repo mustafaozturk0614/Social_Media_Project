@@ -1,0 +1,16 @@
+# Project exclude paths
+/.gradle/
+/auth-service/build/
+/auth-service/build/classes/java/main/
+/build/
+/user-service/build/
+/user-service/build/classes/java/main/
+# Project exclude paths
+/api-gateway-service/build/
+/api-gateway-service/build/classes/java/main/
+/config-server/build/
+/config-server/build/classes/java/main/
+/config-server-git/build/
+/config-server-git/build/classes/java/main/
+/elestic-service/build/
+/elestic-service/build/classes/java/main/
