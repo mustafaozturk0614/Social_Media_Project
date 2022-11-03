@@ -15,6 +15,7 @@
         <module name="SocialMediaProject.main" />
         <module name="SocialMediaProject.api-gateway-service.main" />
         <module name="SocialMediaProject.elestic-service.main" />
+        <module name="SocialMediaProject.mail-service.main" />
         <module name="SocialMediaProject.config-server.main" />
       </profile>
     </annotationProcessing>
