@@ -3,13 +3,10 @@ package com.bilgeadam.utility;
 import com.bilgeadam.dto.response.UserProfileResponseDto;
 import com.bilgeadam.manager.IUserManager;
 import com.bilgeadam.mapper.IUserMapper;
-import com.bilgeadam.repository.entity.UserProfile;
 import com.bilgeadam.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,20 +15,20 @@ import java.util.stream.Collectors;
 public class GetAllData {
 
 
-private  final UserProfileService userProfileService;
+    private final UserProfileService userProfileService;
 
-private  final IUserManager userManager;
+    private final IUserManager userManager;
 
-@PostConstruct
-public void init(){
+    //@PostConstruct
+    public void init() {
 
-    List<UserProfileResponseDto> userProfileList= userManager.findAll().getBody();
+        List<UserProfileResponseDto> userProfileList = userManager.findAll().getBody();
 
 
-    userProfileService.saveAll(userProfileList.stream().
-            map(dto-> IUserMapper.INSTANCE.toUserProfile(dto))
-            .collect(Collectors.toList()));
+        userProfileService.saveAll(userProfileList.stream().
+                map(dto -> IUserMapper.INSTANCE.toUserProfile(dto))
+                .collect(Collectors.toList()));
 
-}
+    }
 
 }
