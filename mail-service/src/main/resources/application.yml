@@ -5,10 +5,10 @@ spring:
     username: mustafa
     password: 123
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${gmailsmtpmail}
-    password: ${gmailsmptpassword}
+    host: ${mailservicehost}
+    port: ${mailserviceport}
+    username: ${mailserviceusername}
+    password: ${mailservicepassword}
     properties:
       mail:
         smtp:
