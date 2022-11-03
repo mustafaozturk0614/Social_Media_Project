@@ -1,4 +1,4 @@
-package com.bilgeadam.dto.request;
+package com.bilgeadam.rabbitmq.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
