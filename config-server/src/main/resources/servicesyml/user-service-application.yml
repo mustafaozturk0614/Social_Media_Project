@@ -4,6 +4,11 @@ server:
 
 
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: mustafa
+    password: 123
   data:
     mongodb:
       host: 35.184.169.123
@@ -17,11 +22,11 @@ spring:
     service:
       name: user-service
 
-#  datasource:
-#    username: 'postgres'
-#    password: 'root'
-#    driver-class-name: org.postgresql.Driver
-#    url: 'jdbc:postgresql://localhost:5432/socialMediaUser'
+  #  datasource:
+  #    username: 'postgres'
+  #    password: 'root'
+  #    driver-class-name: org.postgresql.Driver
+  #    url: 'jdbc:postgresql://localhost:5432/socialMediaUser'
 
   jpa:
     hibernate:
@@ -47,3 +52,10 @@ myapplication:
   feign:
     auth: http://localhost:8090/api/v1
     elastic: http://localhost:8099/api/v1
+
+rabbitmq:
+  exchange-user: user-excahange
+  userUpdateBindingKey: user-update-key
+  userUpdateQueue: user-update-queue
+  userUpdateQueueElastic: user-update-queue-elastic
+  userUpdateBindingKeyElastic: user-update-key-elastic

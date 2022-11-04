@@ -1,7 +1,7 @@
 buildscript {
     dependencies {
 
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:$versions.springBoot"  )
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$versions.springBoot")
     }
 }
 
@@ -9,5 +9,6 @@ dependencies {
 //    implementation libs.springBootJpa
 //    implementation libs.postgresql
     implementation libs.springCloudConfigClient
-    implementation libs. springBootDataMongodb
+    implementation libs.springBootDataMongodb
+    implementation libs.springBootRabbitMQ
 }

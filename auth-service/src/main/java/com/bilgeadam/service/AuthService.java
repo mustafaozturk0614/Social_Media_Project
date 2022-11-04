@@ -12,6 +12,7 @@ import com.bilgeadam.exception.AuthManagerException;
 import com.bilgeadam.exception.ErrorType;
 import com.bilgeadam.manager.IUserManager;
 import com.bilgeadam.mapper.IAuthMapper;
+import com.bilgeadam.rabbitmq.model.UpdateUsernameEmailModel;
 import com.bilgeadam.rabbitmq.procuder.ActivatedCodeProcedure;
 import com.bilgeadam.repository.IAuthRepository;
 import com.bilgeadam.repository.entity.Auth;
@@ -198,5 +199,22 @@ public class AuthService extends ServiceManager<Auth, Long> {
     public List<AuthListResponseDto> findAllByStatusIn() {
         List<Status> statusList = List.of(Status.ACTIVE, Status.PENDING);
         return IAuthMapper.INSTANCE.tAuthListResponseDtoList(authRepository.findAllByStatusIn(statusList));
+    }
+
+
+    public boolean updateAuth(UpdateUsernameEmailModel model) {
+
+        Optional<Auth> auth = authRepository.findById(model.getId());
+
+        if (auth.isPresent()) {
+            auth.get().setEmail(model.getEmail());
+            auth.get().setUsername(model.getUsername());
+            save(auth.get());
+            return true;
+        } else {
+            throw new AuthManagerException(ErrorType.USER_NOT_FOUND);
+        }
+
+
     }
 }

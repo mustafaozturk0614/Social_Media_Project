@@ -20,7 +20,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
 
 
@@ -44,3 +44,4 @@ rabbitmq:
   exchange-auth: auth-excahange
   bindingKey: activated-key
   queueAcvitavted: activated-queue
+  userUpdateQueue: user-update-queue
