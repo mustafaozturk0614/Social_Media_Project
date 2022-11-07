@@ -3,12 +3,15 @@ package com.bilgeadam.utility;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
-public class ServiceManager<T, ID> implements IServices<T, ID>{
-    private final JpaRepository<T,ID> service;
-    public ServiceManager(JpaRepository<T,ID> service){
+public class ServiceManager<T, ID> implements IServices<T, ID> {
+    private final JpaRepository<T, ID> service;
+
+    public ServiceManager(JpaRepository<T, ID> service) {
         this.service = service;
     }
+
     @Override
     public T save(T entity) {
         return service.save(entity);
@@ -35,8 +38,8 @@ public class ServiceManager<T, ID> implements IServices<T, ID>{
     }
 
 
-    public T findById(ID id) {
-        return service.getReferenceById(id);
+    public Optional<T> findById(ID id) {
+        return service.findById(id);
     }
 
     @Override

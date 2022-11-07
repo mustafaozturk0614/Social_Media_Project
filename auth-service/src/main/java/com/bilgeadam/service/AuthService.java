@@ -1,5 +1,6 @@
 package com.bilgeadam.service;
 
+import com.bilgeadam.config.security.JwtTokenManager;
 import com.bilgeadam.dto.request.ActivateReguestDto;
 import com.bilgeadam.dto.request.LoginRequestDto;
 import com.bilgeadam.dto.request.NewCreateUserDto;
@@ -19,7 +20,6 @@ import com.bilgeadam.repository.entity.Auth;
 import com.bilgeadam.repository.enums.Roles;
 import com.bilgeadam.repository.enums.Status;
 import com.bilgeadam.utility.CodeGenaretor;
-import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;

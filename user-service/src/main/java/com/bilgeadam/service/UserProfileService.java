@@ -67,6 +67,8 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
             elasticManager.createUser(IUserMapper.INSTANCE.toUserProfileResponseDto(userProfile));
             return userProfile;
         } catch (Exception e) {
+
+            e.printStackTrace();
             throw new UserManagerException(ErrorType.USER_NOT_CREATED);
         }
 
