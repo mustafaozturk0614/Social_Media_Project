@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -78,11 +79,11 @@ public class UserProfileController {
     }
 
     @GetMapping(GETALL)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<UserProfileResponseDto>> findAll() {
 
         return ResponseEntity.ok(IUserMapper.INSTANCE.toUserProfileResponseDtoList(userProfileService.findAll()));
     }
-
 
     @GetMapping("/findbyusername/{username}")
     public ResponseEntity<UserProfileRedisResponseDto> findbyUsername(@PathVariable String username) {
@@ -100,8 +101,8 @@ public class UserProfileController {
     }
 
 
-    @GetMapping("/findbyrole")
-    public ResponseEntity<List<RoleResponseDto>> findAllByRole(String roles) {
+    @GetMapping("/findbyrole/{roles}")
+    public ResponseEntity<List<RoleResponseDto>> findAllByRole(@PathVariable String roles) {
 
         return ResponseEntity.ok(userProfileService.findByRole(roles));
     }

@@ -100,6 +100,13 @@ public class AuthController {
 
     }
 
+    @GetMapping("/findbyid/{id}")
+    public ResponseEntity<RoleResponseDto> findRoleByAuthId(@PathVariable Long id) {
+
+        return ResponseEntity.ok(authService.findRoleByAuthId(id));
+
+    }
+
     @DeleteMapping("/delete/{token}")
     public ResponseEntity<Boolean> deleteAuth(@PathVariable String token) {
 

@@ -256,4 +256,10 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
         return userProfileRepository.findAll(pageable);
 
     }
+
+
+    public Optional<UserProfile> findByAuthId(Long id) {
+
+        return userProfileRepository.findOptionalByAuthid(id);
+    }
 }

@@ -176,6 +176,12 @@ public class AuthService extends ServiceManager<Auth, Long> {
                 ).collect(Collectors.toList());
     }
 
+
+    public RoleResponseDto findRoleByAuthId(Long id) {
+
+        return IAuthMapper.INSTANCE.toRoleResponseDto(authRepository.findById(id).get());
+    }
+
     @Transactional
     public boolean deleteAuth(String token) {
         Optional<Long> authId = jwtTokenManager.getUserId(token);
