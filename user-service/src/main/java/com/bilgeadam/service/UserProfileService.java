@@ -262,4 +262,9 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
 
         return userProfileRepository.findOptionalByAuthid(id);
     }
+
+//    public Optional<UserProfile> findById(String id) {
+//
+//        return userProfileRepository.findById(id);
+//    }
 }

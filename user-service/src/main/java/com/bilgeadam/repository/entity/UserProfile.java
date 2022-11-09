@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,6 +34,7 @@ public class UserProfile implements Serializable {
     Long updated;
     @Builder.Default
     Status status = Status.PENDING;
-
+    List<String> follows = new ArrayList<>();
+    List<String> followers = new ArrayList<>();
 
 }
