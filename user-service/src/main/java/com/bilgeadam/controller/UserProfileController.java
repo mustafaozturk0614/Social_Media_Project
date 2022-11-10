@@ -4,6 +4,7 @@ import com.bilgeadam.dto.request.ActivateReguestDto;
 import com.bilgeadam.dto.request.NewCreateUserDto;
 import com.bilgeadam.dto.request.UpdateRequestDto;
 import com.bilgeadam.dto.response.RoleResponseDto;
+import com.bilgeadam.dto.response.UserProfilePostResponseDto;
 import com.bilgeadam.dto.response.UserProfileRedisResponseDto;
 import com.bilgeadam.dto.response.UserProfileResponseDto;
 import com.bilgeadam.exception.ErrorType;
@@ -122,5 +123,14 @@ public class UserProfileController {
     @GetMapping("/findbyslice")
     public ResponseEntity<Slice<UserProfile>> findAllSlice(int pageSize, int pageNumber, String direction, String sortParameter) {
         return ResponseEntity.ok(userProfileService.findallSlice(pageSize, pageNumber, direction, sortParameter));
+    }
+
+
+    @GetMapping("/findbyautid/{id}")
+    public ResponseEntity<UserProfilePostResponseDto> findbyAuthId(@PathVariable Long id) {
+
+        UserProfilePostResponseDto userProfilePostResponseDto =
+                IUserMapper.INSTANCE.toUserProfilePostResponseDto(userProfileService.findByAuthId(id).get());
+        return ResponseEntity.ok(userProfilePostResponseDto);
     }
 }

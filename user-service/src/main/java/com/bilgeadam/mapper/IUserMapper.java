@@ -2,6 +2,7 @@ package com.bilgeadam.mapper;
 
 import com.bilgeadam.dto.request.NewCreateUserDto;
 import com.bilgeadam.dto.request.UpdateRequestDto;
+import com.bilgeadam.dto.response.UserProfilePostResponseDto;
 import com.bilgeadam.dto.response.UserProfileRedisResponseDto;
 import com.bilgeadam.dto.response.UserProfileResponseDto;
 import com.bilgeadam.repository.entity.UserProfile;
@@ -11,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = "spring")
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface IUserMapper {
 
 
@@ -25,7 +26,11 @@ public interface IUserMapper {
 
     UserProfileRedisResponseDto toUserProfileRedisResponseDto(final UserProfile userProfile);
 
-    UserProfileResponseDto toUserProfileResponseDto(final  UserProfile userProfile);
-    List<UserProfileResponseDto> toUserProfileResponseDtoList(final  List<UserProfile> userProfile);
+    UserProfileResponseDto toUserProfileResponseDto(final UserProfile userProfile);
+
+    List<UserProfileResponseDto> toUserProfileResponseDtoList(final List<UserProfile> userProfile);
+
+
+    UserProfilePostResponseDto toUserProfilePostResponseDto(final UserProfile userProfile);
 
 }

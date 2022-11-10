@@ -12,7 +12,9 @@ import com.bilgeadam.utility.JwtTokenManager;
 import com.bilgeadam.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FollowService extends ServiceManager<Follow, String> {
@@ -34,8 +36,9 @@ public class FollowService extends ServiceManager<Follow, String> {
 
         Optional<UserProfile> userProfile = userProfileService.findById(dto.getUserId());
         Optional<UserProfile> followUser = userProfileService.findById(dto.getFollowId());
+        Optional<Follow> followDb = followRepository.findOptionalByFollowIdAndUserId(dto.getFollowId(), userProfile.get().getId());
         Follow follow;
-        if (userProfile.isPresent() && followUser.isPresent()) {
+        if (followDb.isEmpty() && userProfile.isPresent() && followUser.isPresent()) {
             follow = save(IFollowMapper.INSTANCE.toFollow(dto));
             userProfile.get().getFollows().add(dto.getFollowId());
             followUser.get().getFollowers().add(dto.getUserId());
@@ -67,12 +70,25 @@ public class FollowService extends ServiceManager<Follow, String> {
                 } else {
                     throw new UserManagerException(ErrorType.FOLLOW_NOT_FOUND);
                 }
-
-
             } else {
                 throw new UserManagerException(ErrorType.USER_NOT_FOUND);
             }
 
+        } else {
+            throw new UserManagerException(ErrorType.INVALID_TOKEN);
+        }
+
+
+    }
+
+    public List<UserProfile> findFollowById(String token) {
+        Optional<Long> authId = jwtTokenManager.getUserId(token);
+        if (authId.isPresent()) {
+            List<String> followsId = userProfileService.findByAuthId(authId.get()).get().getFollows();
+
+            return followsId.stream().map(id -> {
+                return userProfileService.findById(id).get();
+            }).collect(Collectors.toList());
         } else {
             throw new UserManagerException(ErrorType.INVALID_TOKEN);
         }

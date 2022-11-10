@@ -7,6 +7,9 @@ import com.bilgeadam.repository.entity.Comment;
 import com.bilgeadam.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CommentService extends ServiceManager<Comment, String> {
 
@@ -21,5 +24,10 @@ public class CommentService extends ServiceManager<Comment, String> {
 
     public Comment create(CreateCommentDto dto) {
         return save(ICommentMapper.INSTANCE.toComment(dto));
+    }
+
+
+    public Optional<List<Comment>> findAllByPostId(String id) {
+        return commentRepository.findAllOptionalByPostId(id);
     }
 }

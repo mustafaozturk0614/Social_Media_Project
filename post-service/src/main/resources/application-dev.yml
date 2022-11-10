@@ -24,3 +24,4 @@ myapplication:
   feign:
     auth: http://localhost:8090/api/v1
     elastic: http://localhost:8099/api/v1
+    user: http://localhost:8091/api/v1

@@ -1,6 +1,7 @@
 package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.CreatePostDto;
+import com.bilgeadam.dto.GetAllPost;
 import com.bilgeadam.exception.ErrorType;
 import com.bilgeadam.exception.PostManagerException;
 import com.bilgeadam.repository.entity.Post;
@@ -27,11 +28,8 @@ public class PostController {
             postService.create(dto);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
-
             throw new PostManagerException(ErrorType.POST_NOT_CREATED);
         }
-
-
     }
 
     @GetMapping(GETALL)
@@ -39,4 +37,11 @@ public class PostController {
         return ResponseEntity.ok(postService.findAll());
     }
 
+
+    @GetMapping("/getmypost/{token}")
+    public ResponseEntity<List<GetAllPost>> getMyPost(@PathVariable String token) {
+
+
+        return ResponseEntity.ok(postService.getMyPost(token));
+    }
 }
