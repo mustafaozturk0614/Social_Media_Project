@@ -1,13 +1,11 @@
 package com.bilgeadam.controller;
 
+import com.bilgeadam.dto.request.DeleteFollowDto;
 import com.bilgeadam.dto.request.FollowCreateDto;
 import com.bilgeadam.service.FollowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.bilgeadam.constant.ApiUrls.CREATE;
 import static com.bilgeadam.constant.ApiUrls.FOLLOW;
@@ -22,7 +20,14 @@ public class FollowController {
     @PostMapping(CREATE)
     public ResponseEntity<Boolean> createFollow(@RequestBody FollowCreateDto dto) {
         followService.create(dto);
-
         return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteFollow(@RequestBody DeleteFollowDto dto) {
+
+
+        return ResponseEntity.ok(followService.deleteFollow(dto));
+
     }
 }
