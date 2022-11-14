@@ -9,17 +9,11 @@ spring:
       database: ${db_mongo_postdb}
       username: ${db_mongo_username}
       password: ${db_mongo_password}
-  rabbitmq:
-    host: ${rabbitmq-host}
-    port: ${rabbitmq-port}
-    username: ${rabbitmq-username}
-    password: ${rabbitmq-password}
   zipkin:
     enabled: true
     base-url: ${zipkin-url}
     service:
       name: post-service
-
 
 #Jwt
 secretkey: ${secretkey}
@@ -28,6 +22,6 @@ issuer: ${issuer}
 
 myapplication:
   feign:
-    auth: ${myapplication-feign-auth}
-    elastic: ${myapplication-feign-elastic}
-    user: ${myapplication-feign-user}
+    user: ${myapplication.feign.user}
+    auth: ${myapplication.feign.auth}
+    elastic: ${myapplication.feign.elastic}

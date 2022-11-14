@@ -1,0 +1,64 @@
+server:
+  port: ${user-port}
+
+
+
+spring:
+  rabbitmq:
+    host: ${rabbitmq-host}
+    port: ${rabbitmq-port}
+    username: ${rabbitmq-username}
+    password: ${rabbitmq-password}
+  zipkin:
+    enabled: true
+    base-url: ${zipkin-url}
+    service:
+      name: user-service
+  data:
+
+    mongodb:
+      host: ${db_mongo_host}
+      port: ${db_mongo_port}
+      database: ${db_mongo_userdb}
+      username: ${db_mongo_username}
+      password: ${db_mongo_password}
+
+
+
+  #  datasource:
+  #    username: 'postgres'
+  #    password: 'root'
+  #    driver-class-name: org.postgresql.Driver
+  #    url: 'jdbc:postgresql://localhost:5432/socialMediaUser'
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+
+
+#Jwt
+
+
+secretkey: ${secretkey}
+audience: ${audience}
+issuer: ${issuer}
+
+
+redis:
+  host: localhost
+  port: 6379
+
+
+myapplication:
+  feign:
+    auth: ${myapplication.feign.auth}
+    elastic: ${myapplication.feign.elastic}
+
+rabbitmq:
+  exchange-user: ${exchange-user}
+  userUpdateBindingKey: ${userUpdateBindingKey}
+  userUpdateQueue: ${userUpdateQueue} user-update-queue
+  userUpdateQueueElastic: ${userUpdateQueueElastic}
+  userUpdateBindingKeyElastic: ${userUpdateBindingKeyElastic}

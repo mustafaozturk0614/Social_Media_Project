@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mail-cluster
+spec:
+  type: ClusterIP
+  selector:
+    app: mail-service
+  ports:
+    - port: 8094
+      targetPort: 8094
+      name: mail-service-port

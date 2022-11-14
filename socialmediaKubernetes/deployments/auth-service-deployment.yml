@@ -1,0 +1,128 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service-deployment
+  labels:
+    team: socialmediadev
+spec:
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+        - name: myapp
+          image: musty1406/auth-service:v001
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "0.1"
+            limits:
+              memory: "2Gi"
+              cpu: "0.2"
+          ports:
+            - containerPort: 8090
+          env:
+            - name: auth-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: auth-port
+            - name: zipkin-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: zipkin-url
+            - name: rabbitmq-host
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-host
+            - name: rabbitmq-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-port
+            - name: rabbitmq-username
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-username
+            - name: rabbitmq-password
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-password
+            - name: secretkey
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: secretkey
+            - name: audience
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: audience
+            - name: issuer
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: issuer
+            - name: redis-host
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: redis-host
+            - name: redis-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: redis-port
+            - name: myapplication-feign-user
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: myapplication-feign-user
+            - name: rabbitmq-exchange-auth
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-exchange-auth
+            - name: rabbitmq-bindingKey
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-bindingKey
+            - name: rabbitmq-queueAcvitavted
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-queueAcvitavted
+            - name: rabbitmq-userUpdateQueue
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-userUpdateQueue
+            - name: db_postgresql_username
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_postgresql_username
+            - name: db_postgresql_password
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_postgresql_password
+            - name: db_postgresql_url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_postgresql_url
+            - name: config-server-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: config-server-url

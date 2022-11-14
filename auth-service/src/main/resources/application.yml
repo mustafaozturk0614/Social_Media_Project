@@ -1,9 +1,7 @@
 spring:
   cloud:
     config:
-      uri: http://localhost:8888
-  profiles:
-    active: properties
+      uri: ${config-server-url}
   config:
     import: "configserver:"
   application:

@@ -20,9 +20,9 @@ audience: ${audience}
 issuer: ${issuer}
 
 rabbitmq:
-  userUpdateQueueElastic: ${rabbitmq-userUpdateQueueElastic}
+  userUpdateQueueElastic: ${userUpdateQueueElastic}
 
 myapplication:
   feign:
-    user: ${myapplication-feign-user}
-    auth: ${myapplication-feign-auth}
+    user: ${myapplication.feign.user}
+    auth: ${myapplication.feign.auth}

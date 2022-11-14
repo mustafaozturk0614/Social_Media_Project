@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-postgresql
+  labels:
+    team: socialmediadev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+        - name: postgresqlcontainer
+          image: postgres
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              value: root
+            - name: POSTGRESQL_PGHBA_REMOVE_FILTERS
+              value: local,md5

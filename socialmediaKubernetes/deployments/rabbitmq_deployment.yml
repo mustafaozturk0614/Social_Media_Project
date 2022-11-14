@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  labels:
+    team: socialmediadev
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq-pod
+          image: rabbitmq:3-management
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "0.1"
+            limits:
+              memory: "2Gi"
+              cpu: "0.25"
+          ports:
+            - containerPort: 5672
+              name: rabbitmq
+              protocol: TCP
+            - containerPort: 15672
+              name: rabbit-manage
+              protocol: TCP
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: "socialmedia"
+            - name: RABBITMQ_DEFAULT_PASS
+              value: "socialmedia123*"

@@ -17,7 +17,6 @@ spring:
     password: ${db_postgresql_password}
     driver-class-name: org.postgresql.Driver
     url: ${db_postgresql_url}
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -32,16 +31,17 @@ audience: ${audience}
 issuer: ${issuer}
 
 redis:
-  host: ${redis-host}
-  port: ${redis-port}
+  host: ${redis_host}
+  port: ${redis_port}
 
 myapplication:
   feign:
-    user: ${myapplication-feign-user}
+    user: ${myapplication.feign.user}
+    elastic: ${myapplication.feign.elastic}
 
 
 rabbitmq:
-  exchange-auth: ${rabbitmq-exchange-auth}
-  bindingKey: ${rabbitmq-bindingKey}
-  queueAcvitavted: ${rabbitmq-queueAcvitavted}
-  userUpdateQueue: ${rabbitmq-userUpdateQueue}
+  exchange-auth: ${exchange-auth}
+  bindingKey: ${bindingKey}
+  queueAcvitavted: ${queueAcvitavted}
+  userUpdateQueue: ${userUpdateQueue}

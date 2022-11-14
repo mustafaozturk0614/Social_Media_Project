@@ -1,0 +1,149 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+  labels:
+    team: socialmediadev
+spec:
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: myapp
+          image: musty1406/user-service:v001
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "0.1"
+            limits:
+              memory: "2Gi"
+              cpu: "0.2"
+          ports:
+            - containerPort: 8090
+          env:
+            - name: user-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: auth-port
+            - name: zipkin-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: zipkin-url
+            - name: rabbitmq-host
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-host
+            - name: rabbitmq-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-port
+            - name: rabbitmq-username
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-username
+            - name: rabbitmq-password
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-password
+            - name: secretkey
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: secretkey
+            - name: audience
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: audience
+            - name: issuer
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: issuer
+            - name: redis-host
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: redis-host
+            - name: redis-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: redis-port
+            - name: myapplication-feign-auth
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: myapplication-feign-auth
+            - name: myapplication-feign-elastic
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: myapplication-feign-elastic
+
+            - name: rabbitmq-exchange-user
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-exchange-user
+            - name: rabbitmq-userUpdateBindingKey
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-userUpdateBindingKey
+            - name: rabbitmq-userUpdateQueueElastic
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-userUpdateQueueElastic
+            - name: rabbitmq-userUpdateQueue
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-userUpdateQueue
+            - name: rabbitmq-userUpdateBindingKeyElastic
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: rabbitmq-userUpdateBindingKeyElastic
+            - name: db_mongo_host
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_mongo_host
+            - name: db_mongo_port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_mongo_port
+            - name: db_mongo_username
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_mongo_username
+            - name: db_mongo_password
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_mongo_password
+            - name: db_mongo_userdb
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: db_mongo_userdb
+            - name: config-server-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: config-server-url

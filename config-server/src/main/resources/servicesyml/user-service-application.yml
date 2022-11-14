@@ -1,28 +1,22 @@
 server:
-  port: 8091
-
-
+  port: ${user-port}
 
 spring:
-  security:
-    user:
-      name: mustafa
-      password: 123
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: mustafa
-    password: 123
   data:
     mongodb:
-      host: 35.184.169.123
-      port: 14806
-      database: userDb
-      username: bilge
-      password: bilge
+      host: ${db_mongo_host}
+      port: ${db_mongo_port}
+      database: ${db_mongo_userdb}
+      username: ${db_mongo_username}
+      password: ${db_mongo_password}
+  rabbitmq:
+    host: ${rabbitmq-host}
+    port: ${rabbitmq-port}
+    username: ${rabbitmq-username}
+    password: ${rabbitmq-password}
   zipkin:
     enabled: true
-    base-url: http://localhost:9411
+    base-url: ${zipkin-url}
     service:
       name: user-service
 
@@ -32,10 +26,10 @@ spring:
   #    driver-class-name: org.postgresql.Driver
   #    url: 'jdbc:postgresql://localhost:5432/socialMediaUser'
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true
 
 
 
@@ -48,18 +42,18 @@ issuer: ${issuer}
 
 
 redis:
-  host: localhost
-  port: 6379
+  host: ${redis-host}
+  port: ${redis-port}
 
 
 myapplication:
   feign:
-    auth: http://localhost:8090/api/v1
-    elastic: http://localhost:8099/api/v1
+    auth: ${myapplication-feign-auth}
+    elastic: ${myapplication-feign-elastic}
 
 rabbitmq:
-  exchange-user: user-excahange
-  userUpdateBindingKey: user-update-key
-  userUpdateQueue: user-update-queue
-  userUpdateQueueElastic: user-update-queue-elastic
-  userUpdateBindingKeyElastic: user-update-key-elastic
+  exchange-user: ${rabbitmq-exchange-user}
+  userUpdateBindingKey: ${rabbitmq-userUpdateBindingKey}
+  userUpdateQueue: ${rabbitmq-userUpdateQueue}
+  userUpdateQueueElastic: ${rabbitmq-userUpdateQueueElastic}
+  userUpdateBindingKeyElastic: ${rabbitmq-userUpdateBindingKeyElastic}

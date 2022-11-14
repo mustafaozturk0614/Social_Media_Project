@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deployment
+  labels:
+    team: socialmediadev
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: myapp
+          image: musty1406/api-gateway:v001
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "0.1"
+            limits:
+              memory: "2Gi"
+              cpu: "0.2"
+          ports:
+            - containerPort: 80
+          env:
+            - name: gateway-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: gateway-port
+            - name: zipkin-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: zipkin-url
+            - name: user-service-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: user-service-url
+            - name: auth-service-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: auth-service-url
+            - name: post-service-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: post-service-url
+            - name: mail-service-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: mail-service-url
+            - name: elastic-service-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: elastic-service-url

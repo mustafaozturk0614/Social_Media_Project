@@ -1,0 +1,22 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: mustafa
+    password: 123
+  mail:
+    host: ${mailservicehost}
+    port: ${mailserviceport}
+    username: ${mailserviceusername}
+    password: ${mailservicepassword}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+rabbitmq:
+  queueAcvitavted: activated-queue
+server:
+  port: 8094

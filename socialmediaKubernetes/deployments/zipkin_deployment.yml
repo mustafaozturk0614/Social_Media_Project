@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipkin
+  labels:
+    team: socialmediadev
+spec:
+  selector:
+    matchLabels:
+      app: zipkin
+  template:
+    metadata:
+      labels:
+        app: zipkin
+    spec:
+      containers:
+        - name: zipkin-pod
+          image: openzipkin/zipkin
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "0.1"
+            limits:
+              memory: "2Gi"
+              cpu: "0.25"
+          ports:
+            - containerPort: 9411

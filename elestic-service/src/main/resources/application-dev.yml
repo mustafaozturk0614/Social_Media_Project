@@ -1,8 +1,11 @@
 spring:
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: ${config-server-url}
   config:
     import: "configserver:"
   application:
-    name: post-service-application-dev
+    name: elastic-service-application-dev
+
+
+

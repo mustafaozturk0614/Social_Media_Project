@@ -14,7 +14,7 @@ public class FallbackController {
     public ResponseEntity<String> authServiceFallback() {
 
 
-        return ResponseEntity.ok("Auth service Þuanda hizmet vermiyor");
+        return ResponseEntity.ok("Auth service Suanda hizmet vermiyor");
     }
 
 
@@ -22,7 +22,28 @@ public class FallbackController {
     public ResponseEntity<String> userServiceFallback() {
 
 
-        return ResponseEntity.ok("User service Þuanda hizmet vermiyor");
+        return ResponseEntity.ok("User service Suanda hizmet vermiyor");
+    }
+
+    @GetMapping("/postservice")
+    public ResponseEntity<String> postServiceFallback() {
+
+
+        return ResponseEntity.ok("Post service Suanda hizmet vermiyor");
+    }
+
+    @GetMapping("/elasticservice")
+    public ResponseEntity<String> elasticServiceFallback() {
+
+
+        return ResponseEntity.ok("Elastic service Suanda hizmet vermiyor");
+    }
+
+    @GetMapping("/mailservice")
+    public ResponseEntity<String> mailServiceFallback() {
+
+
+        return ResponseEntity.ok("Mail service Suanda hizmet vermiyor");
     }
 
 

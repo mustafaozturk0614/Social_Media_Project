@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configserverdeployment
+  labels:
+    team: socialmediadev
+spec:
+  selector:
+    matchLabels:
+      app: config-service
+  template:
+    metadata:
+      labels:
+        app: config-service
+    spec:
+      containers:
+        - name: myapp
+          image: musty1406/config-server:v001
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.1"
+            limits:
+              memory: "256Mi"
+              cpu: "0.2"
+          ports:
+            - containerPort: 8888
+          env:
+            - name: config-port
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: config-port
+            - name: zipkin-url
+              valueFrom:
+                secretKeyRef:
+                  name: socialmediasecret
+                  key: zipkin-url
