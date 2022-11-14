@@ -3,6 +3,9 @@ package com.bilgeadam.service;
 import com.bilgeadam.dto.CreatePostDto;
 import com.bilgeadam.dto.GetAllPost;
 import com.bilgeadam.dto.UserProfilePostResponseDto;
+import com.bilgeadam.dto.request.DeletePostDto;
+import com.bilgeadam.dto.request.GetOtherUserPost;
+import com.bilgeadam.dto.request.PostUpdateDto;
 import com.bilgeadam.exception.ErrorType;
 import com.bilgeadam.exception.PostManagerException;
 import com.bilgeadam.manager.IUserManager;
@@ -56,14 +59,66 @@ public class PostService extends ServiceManager<Post, String> {
         }
     }
 
-    private List<GetAllPost> getComment(List<Post> posts) {
+    public List<GetAllPost> getOtherUserPost(GetOtherUserPost getOtherUserPost) {
+        Optional<Long> authId = jwtTokenManager.getUserId(getOtherUserPost.getToken());
+        if (authId.isPresent()) {
+            List<Post> posts = postRepository.findAllByUsername(getOtherUserPost.getUsername());
+            return getComment(posts);
+        } else {
+            throw new PostManagerException(ErrorType.INVALID_TOKEN);
+        }
+    }
+
+    public List<GetAllPost> getComment(List<Post> posts) {
         List<GetAllPost> getAllPosts = new ArrayList<>();
         posts.stream().forEach(x -> {
             GetAllPost getAllPost = IPostMapper.INSTANCE.toGetAllPost(x);
             getAllPost.setCommentList(commentService.findAllByPostId(x.getId()).get());
             getAllPosts.add(getAllPost);
         });
-
         return getAllPosts;
+    }
+
+    public Boolean deletePost(DeletePostDto deletePostDto) {
+        Optional<Long> authid = jwtTokenManager.getUserId(deletePostDto.getToken());
+        if (authid.isPresent()) {
+            UserProfilePostResponseDto dto = userManager.findbyAuthId(authid.get()).getBody();
+            Optional<Post> post = postRepository.findByIdAndUserId(deletePostDto.getPostId(), dto.getId());
+            if (post.isPresent()) {
+
+                delete(post.get());
+                return true;
+            } else {
+                throw new PostManagerException(ErrorType.POST_NOT_FOUND);
+            }
+
+        } else {
+            throw new PostManagerException(ErrorType.INVALID_TOKEN);
+        }
+    }
+
+    public Boolean updatePost(PostUpdateDto postUpdateDto) {
+        Optional<Long> authId = jwtTokenManager.getUserId(postUpdateDto.getToken());
+
+        if (authId.isPresent()) {
+            UserProfilePostResponseDto dto = userManager.findbyAuthId(authId.get()).getBody();
+            Optional<Post> post = postRepository.findByIdAndUserId(postUpdateDto.getId(), dto.getId());
+            if (post.isPresent()) {
+                post.get().setPostMediaUrl(postUpdateDto.getPostMediaUrl());
+                post.get().setContent(postUpdateDto.getContent());
+                post.get().setTitle(postUpdateDto.getTitle());
+                save(post.get());
+                return true;
+            } else {
+
+                throw new PostManagerException(ErrorType.POST_NOT_FOUND);
+            }
+
+
+        } else {
+
+            throw new PostManagerException(ErrorType.INVALID_TOKEN);
+        }
+
     }
 }

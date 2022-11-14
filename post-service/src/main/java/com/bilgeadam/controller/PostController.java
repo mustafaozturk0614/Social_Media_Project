@@ -2,6 +2,9 @@ package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.CreatePostDto;
 import com.bilgeadam.dto.GetAllPost;
+import com.bilgeadam.dto.request.DeletePostDto;
+import com.bilgeadam.dto.request.GetOtherUserPost;
+import com.bilgeadam.dto.request.PostUpdateDto;
 import com.bilgeadam.exception.ErrorType;
 import com.bilgeadam.exception.PostManagerException;
 import com.bilgeadam.repository.entity.Post;
@@ -43,5 +46,24 @@ public class PostController {
 
 
         return ResponseEntity.ok(postService.getMyPost(token));
+    }
+
+    @PostMapping("/getotheruserpost")
+    public ResponseEntity<List<GetAllPost>> getMyPost(@RequestBody GetOtherUserPost getOtherUserPost) {
+
+
+        return ResponseEntity.ok(postService.getOtherUserPost(getOtherUserPost));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deletePost(@RequestBody DeletePostDto deletePostDto) {
+
+        return ResponseEntity.ok(postService.deletePost(deletePostDto));
+    }
+
+    @PutMapping(UPDATE)
+    public ResponseEntity<Boolean> updatePost(@RequestBody PostUpdateDto postUpdateDto) {
+
+        return ResponseEntity.ok(postService.updatePost(postUpdateDto));
     }
 }

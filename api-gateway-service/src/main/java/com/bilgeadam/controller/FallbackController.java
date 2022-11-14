@@ -11,20 +11,19 @@ public class FallbackController {
 
 
     @GetMapping("/authservice")
-    public ResponseEntity<String> authServiceFallback(){
+    public ResponseEntity<String> authServiceFallback() {
 
 
-        return  ResponseEntity.ok("Auth service Þuanda hizmet vermiyor");
+        return ResponseEntity.ok("Auth service Þuanda hizmet vermiyor");
     }
 
 
     @GetMapping("/userservice")
-    public ResponseEntity<String> userServiceFallback(){
+    public ResponseEntity<String> userServiceFallback() {
 
 
-        return  ResponseEntity.ok("User service Þuanda hizmet vermiyor");
+        return ResponseEntity.ok("User service Þuanda hizmet vermiyor");
     }
-
 
 
 }
