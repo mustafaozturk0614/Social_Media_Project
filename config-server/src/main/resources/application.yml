@@ -1,0 +1,18 @@
+server:
+  port: ${config-port}
+
+spring:
+  zipkin:
+    enabled: true
+    base-url: ${zipkin-url}
+    service:
+      name: config-service
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/servicesyml

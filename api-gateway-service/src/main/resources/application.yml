@@ -1,0 +1,73 @@
+server:
+  port: ${api-gateway-port}
+
+spring:
+  zipkin:
+    enabled: true
+    base-url: ${zipkin-url}
+    service:
+      name: gateway-service
+
+  main:
+    web-application-type: reactive
+  application:
+    name: api-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${auth-service-url}
+          predicates:
+            - Path= /auth/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/authservice
+        - id: user-service
+          uri: ${user-service-url}
+          predicates:
+            - Path= /user/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/userservice
+        - id: user-service-follow
+          uri: ${user-service-url}
+          predicates:
+            - Path= /follow/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/userservice
+        - id: post-service
+          uri: ${post-service-url}
+          predicates:
+            - Path=/post/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/postservice
+        - id: elastic-service
+          uri: ${elastic-service-uri}
+          predicates:
+            - Path=/elastic/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/elasticservice
+        - id: mail-service
+          uri: ${mail-service-url}
+          predicates:
+            - Path=/mail/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                enabled: true
+                fallbackUri: forward:/fallback/mailservice
+      default-filters:
+        - RewritePath= /(?<segment>.*),/api/v1/$\{segment}
