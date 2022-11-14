@@ -52,6 +52,7 @@ spring:
                 enabled: true
                 fallbackUri: forward:/fallback/postservice
         - id: elastic-service
+          //
           uri: ${elastic-service-uri}
           predicates:
             - Path=/elastic/**
