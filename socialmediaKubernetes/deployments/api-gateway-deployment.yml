@@ -14,8 +14,8 @@ spec:
         app: api-gateway
     spec:
       containers:
-        - name: myapp
-          image: musty1406/api-gateway:v001
+        - name: apigateway-container
+          image: musty1406/api-gatewayj3:v002
           resources:
             requests:
               memory: "1Gi"
@@ -26,7 +26,7 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: gateway-port
+            - name: api-gateway-port
               valueFrom:
                 secretKeyRef:
                   name: socialmediasecret
@@ -56,7 +56,7 @@ spec:
                 secretKeyRef:
                   name: socialmediasecret
                   key: mail-service-url
-            - name: elastic-service-url
+            - name: elastic-service-uri
               valueFrom:
                 secretKeyRef:
                   name: socialmediasecret

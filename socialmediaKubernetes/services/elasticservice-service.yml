@@ -9,4 +9,7 @@ spec:
   ports:
     - port: 8099
       targetPort: 8099
-      name: elastic-service-port
+      name: elastic-service-one
+    - port: 9200
+      targetPort: 9200
+      name: elastic-service-two

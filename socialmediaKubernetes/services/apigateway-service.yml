@@ -6,6 +6,7 @@ spec:
   type: LoadBalancer
   selector:
     app: api-gateway
+
   ports:
     - port: 80
       targetPort: 80

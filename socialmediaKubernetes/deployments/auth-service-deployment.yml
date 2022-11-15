@@ -14,8 +14,8 @@ spec:
         app: auth-service
     spec:
       containers:
-        - name: myapp
-          image: musty1406/auth-service:v001
+        - name: auth-service
+          image: musty1406/auth-servicej3:v004
           resources:
             requests:
               memory: "1Gi"

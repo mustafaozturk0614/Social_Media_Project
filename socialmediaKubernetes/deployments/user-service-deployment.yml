@@ -8,14 +8,16 @@ spec:
   selector:
     matchLabels:
       app: user-service
+
   template:
     metadata:
       labels:
         app: user-service
+
     spec:
       containers:
-        - name: myapp
-          image: musty1406/user-service:v001
+        - name: user-container
+          image: musty1406/user-servicej3:v002
           resources:
             requests:
               memory: "1Gi"
@@ -24,13 +26,13 @@ spec:
               memory: "2Gi"
               cpu: "0.2"
           ports:
-            - containerPort: 8090
+            - containerPort: 8091
           env:
             - name: user-port
               valueFrom:
                 secretKeyRef:
                   name: socialmediasecret
-                  key: auth-port
+                  key: user-port
             - name: zipkin-url
               valueFrom:
                 secretKeyRef:
