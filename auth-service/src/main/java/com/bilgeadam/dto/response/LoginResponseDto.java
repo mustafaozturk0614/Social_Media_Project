@@ -17,5 +17,6 @@ public class LoginResponseDto {
     private String email;
     private Roles role;
     private String token;
-
+    @Builder.Default
+    private Long code = 400L;
 }

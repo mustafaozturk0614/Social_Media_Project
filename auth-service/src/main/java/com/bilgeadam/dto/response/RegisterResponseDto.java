@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class RegisterResponseDto {
-private Long id;
-private String username;
-private String activatedCode;
+    private Long id;
+    private String username;
+    private String activatedCode;
+    @Builder.Default
+    private int code = 200;
 
 }

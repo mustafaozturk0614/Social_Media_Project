@@ -103,6 +103,7 @@ public class AuthService extends ServiceManager<Auth, Long> {
 
         } catch (Exception e) {
 //                 delete(auth);
+            e.printStackTrace();
             throw new AuthManagerException(ErrorType.USER_NOT_CREATED);
 
         }
@@ -123,6 +124,7 @@ public class AuthService extends ServiceManager<Auth, Long> {
             LoginResponseDto loginResponseDto = IAuthMapper.INSTANCE.toLoginResponseDto(auth.get());
             String token = jwtTokenManager.createToken(loginResponseDto.getId());
             loginResponseDto.setToken(token);
+            loginResponseDto.setCode(200L);
             return Optional.of(loginResponseDto);
         } else {
             throw new AuthManagerException(ErrorType.LOGIN_ERROR_WRONG);

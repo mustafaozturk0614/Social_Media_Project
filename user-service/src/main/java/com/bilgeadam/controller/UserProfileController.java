@@ -1,6 +1,7 @@
 package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.request.ActivateReguestDto;
+import com.bilgeadam.dto.request.FindByToken;
 import com.bilgeadam.dto.request.NewCreateUserDto;
 import com.bilgeadam.dto.request.UpdateRequestDto;
 import com.bilgeadam.dto.response.RoleResponseDto;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +28,7 @@ import static com.bilgeadam.constant.ApiUrls.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(USER)
+@CrossOrigin(origins = "*")
 public class UserProfileController {
 
     private final UserProfileService userProfileService;
@@ -80,7 +81,7 @@ public class UserProfileController {
     }
 
     @GetMapping(GETALL)
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     public ResponseEntity<List<UserProfileResponseDto>> findAll() {
 
         return ResponseEntity.ok(IUserMapper.INSTANCE.toUserProfileResponseDtoList(userProfileService.findAll()));
@@ -132,5 +133,11 @@ public class UserProfileController {
         UserProfilePostResponseDto userProfilePostResponseDto =
                 IUserMapper.INSTANCE.toUserProfilePostResponseDto(userProfileService.findByAuthId(id).get());
         return ResponseEntity.ok(userProfilePostResponseDto);
+    }
+
+    @PostMapping("/findbytoken")
+    public ResponseEntity<UserProfile> findbyToken(@RequestBody FindByToken token) {
+        System.out.println(token);
+        return ResponseEntity.ok(userProfileService.findByToken(token.getToken()));
     }
 }

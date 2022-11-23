@@ -263,6 +263,28 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
         return userProfileRepository.findOptionalByAuthid(id);
     }
 
+    public UserProfile findByToken(String token) {
+
+        Optional<Long> authid = jwtTokenManager.getUserId(token);
+
+        if (authid.isPresent()) {
+            Optional<UserProfile> userProfile = findByAuthId(authid.get());
+            if (userProfile.isPresent()) {
+
+                return userProfile.get();
+            } else {
+
+                throw new UserManagerException(ErrorType.USER_NOT_FOUND);
+            }
+
+
+        } else {
+            throw new UserManagerException(ErrorType.INVALID_TOKEN);
+        }
+
+
+    }
+
 //    public Optional<UserProfile> findById(String id) {
 //
 //        return userProfileRepository.findById(id);

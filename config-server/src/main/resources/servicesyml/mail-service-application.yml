@@ -1,5 +1,5 @@
 server:
-  port: ${mail-port}
+  port: 8094
 spring:
   rabbitmq:
     host: ${rabbitmq-host}
