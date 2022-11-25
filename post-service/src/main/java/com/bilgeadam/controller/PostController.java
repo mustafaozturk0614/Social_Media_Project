@@ -3,6 +3,7 @@ package com.bilgeadam.controller;
 import com.bilgeadam.dto.CreatePostDto;
 import com.bilgeadam.dto.GetAllPost;
 import com.bilgeadam.dto.request.DeletePostDto;
+import com.bilgeadam.dto.request.FindByToken;
 import com.bilgeadam.dto.request.GetOtherUserPost;
 import com.bilgeadam.dto.request.PostUpdateDto;
 import com.bilgeadam.exception.ErrorType;
@@ -20,6 +21,7 @@ import static com.bilgeadam.constant.ApiUrls.*;
 @RestController
 @RequestMapping(POST)
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class PostController {
 
 
@@ -66,4 +68,12 @@ public class PostController {
 
         return ResponseEntity.ok(postService.updatePost(postUpdateDto));
     }
+
+    @PostMapping("/getmyfollowpost")
+    public ResponseEntity<List<Post>> myFollowPost(@RequestBody FindByToken token) {
+
+
+        return ResponseEntity.ok(postService.myFollowPost(token));
+    }
+
 }

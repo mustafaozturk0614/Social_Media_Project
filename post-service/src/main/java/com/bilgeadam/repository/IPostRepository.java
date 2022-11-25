@@ -17,4 +17,6 @@ public interface IPostRepository extends MongoRepository<Post, String> {
 
 
     Optional<Post> findByIdAndUserId(String id, String userId);
+
+    List<Post> findByUserIdIn(List<String> userIdlist);
 }

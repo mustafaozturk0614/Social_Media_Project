@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/auth-service/src/main/java/com/bilgeadam/controller/AuthController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/auth-service/src/main/java/com/bilgeadam/service/AuthService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-service/src/main/java/com/bilgeadam/UserServiceApplication.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user-service/src/main/java/com/bilgeadam/service/UserProfileService.java" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1254" />
   </component>

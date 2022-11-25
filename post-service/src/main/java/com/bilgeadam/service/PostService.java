@@ -4,10 +4,12 @@ import com.bilgeadam.dto.CreatePostDto;
 import com.bilgeadam.dto.GetAllPost;
 import com.bilgeadam.dto.UserProfilePostResponseDto;
 import com.bilgeadam.dto.request.DeletePostDto;
+import com.bilgeadam.dto.request.FindByToken;
 import com.bilgeadam.dto.request.GetOtherUserPost;
 import com.bilgeadam.dto.request.PostUpdateDto;
 import com.bilgeadam.exception.ErrorType;
 import com.bilgeadam.exception.PostManagerException;
+import com.bilgeadam.manager.IFollowManager;
 import com.bilgeadam.manager.IUserManager;
 import com.bilgeadam.mapper.IPostMapper;
 import com.bilgeadam.repository.IPostRepository;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService extends ServiceManager<Post, String> {
@@ -29,16 +32,18 @@ public class PostService extends ServiceManager<Post, String> {
     private final JwtTokenManager jwtTokenManager;
 
     private final IUserManager userManager;
+    private final IFollowManager followManager;
 
     private final CommentService commentService;
 
 
-    public PostService(IPostRepository postRepository, JwtTokenManager jwtTokenManager, IUserManager userManager, CommentService commentService) {
+    public PostService(IPostRepository postRepository, JwtTokenManager jwtTokenManager, IUserManager userManager, CommentService commentService, IFollowManager followManager) {
         super(postRepository);
         this.postRepository = postRepository;
         this.jwtTokenManager = jwtTokenManager;
         this.userManager = userManager;
         this.commentService = commentService;
+        this.followManager = followManager;
     }
 
     public Post create(CreatePostDto dto) {
@@ -119,6 +124,22 @@ public class PostService extends ServiceManager<Post, String> {
 
             throw new PostManagerException(ErrorType.INVALID_TOKEN);
         }
+
+    }
+
+    public List<Post> myFollowPost(FindByToken token) {
+        System.out.println(token);
+        try {
+
+            List<UserProfilePostResponseDto> userProfilePostResponseDtos = followManager.findMyFollow(token).getBody();
+            List<String> userIds = userProfilePostResponseDtos.stream().map((x) -> x.getId()).collect(Collectors.toList());
+
+            return postRepository.findByUserIdIn(userIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
 
     }
 }

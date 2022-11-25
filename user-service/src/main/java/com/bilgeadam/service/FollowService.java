@@ -1,7 +1,9 @@
 package com.bilgeadam.service;
 
 import com.bilgeadam.dto.request.DeleteFollowDto;
+import com.bilgeadam.dto.request.FindByToken;
 import com.bilgeadam.dto.request.FollowCreateDto;
+import com.bilgeadam.dto.response.UserProfilePostResponseDto;
 import com.bilgeadam.exception.ErrorType;
 import com.bilgeadam.exception.UserManagerException;
 import com.bilgeadam.mapper.IFollowMapper;
@@ -90,6 +92,23 @@ public class FollowService extends ServiceManager<Follow, String> {
                 return userProfileService.findById(id).get();
             }).collect(Collectors.toList());
         } else {
+            throw new UserManagerException(ErrorType.INVALID_TOKEN);
+        }
+
+
+    }
+
+    public List<UserProfilePostResponseDto> findMyFollow(FindByToken token) {
+        Optional<Long> id = jwtTokenManager.getUserId(token.getToken());
+
+        if (id.isPresent()) {
+            String userId = userProfileService.findByAuthId(id.get()).get().getId();
+
+
+            return followRepository.findOptionalByUserId(userId).get().stream().map((x) -> UserProfilePostResponseDto.builder().id(x.getFollowId()).build()).collect(Collectors.toList());
+
+        } else {
+
             throw new UserManagerException(ErrorType.INVALID_TOKEN);
         }
 

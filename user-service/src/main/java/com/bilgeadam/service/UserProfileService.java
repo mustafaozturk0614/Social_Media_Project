@@ -264,19 +264,14 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
     }
 
     public UserProfile findByToken(String token) {
-
         Optional<Long> authid = jwtTokenManager.getUserId(token);
-
         if (authid.isPresent()) {
             Optional<UserProfile> userProfile = findByAuthId(authid.get());
             if (userProfile.isPresent()) {
-
                 return userProfile.get();
             } else {
-
                 throw new UserManagerException(ErrorType.USER_NOT_FOUND);
             }
-
 
         } else {
             throw new UserManagerException(ErrorType.INVALID_TOKEN);

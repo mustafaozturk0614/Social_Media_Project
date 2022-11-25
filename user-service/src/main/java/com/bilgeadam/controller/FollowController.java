@@ -1,7 +1,9 @@
 package com.bilgeadam.controller;
 
 import com.bilgeadam.dto.request.DeleteFollowDto;
+import com.bilgeadam.dto.request.FindByToken;
 import com.bilgeadam.dto.request.FollowCreateDto;
+import com.bilgeadam.dto.response.UserProfilePostResponseDto;
 import com.bilgeadam.repository.entity.Follow;
 import com.bilgeadam.repository.entity.UserProfile;
 import com.bilgeadam.service.FollowService;
@@ -35,15 +37,21 @@ public class FollowController {
 
     }
 
-    @GetMapping("/findfollows/{token}")
-    public ResponseEntity<List<UserProfile>> findFollowsById(@PathVariable String token) {
+    @PostMapping("/findfollows/{token}")
+    public ResponseEntity<List<UserProfile>> findFollowsById(@RequestBody FindByToken token) {
 
-        return ResponseEntity.ok(followService.findFollowById(token));
+        return ResponseEntity.ok(followService.findFollowById(token.getToken()));
     }
 
     @GetMapping("/findall")
     public ResponseEntity<List<Follow>> findall() {
 
         return ResponseEntity.ok(followService.findAll());
+    }
+
+    @PostMapping("/findmyfollows")
+    public ResponseEntity<List<UserProfilePostResponseDto>> findMyFollow(@RequestBody FindByToken token) {
+
+        return ResponseEntity.ok(followService.findMyFollow(token));
     }
 }
