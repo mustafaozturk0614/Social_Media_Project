@@ -135,6 +135,18 @@ public class UserProfileController {
         return ResponseEntity.ok(userProfilePostResponseDto);
     }
 
+    @PostMapping("/findbyid/{id}")
+    public ResponseEntity<UserProfile> findbyId(@PathVariable String id, @RequestBody FindByToken token) {
+
+        return ResponseEntity.ok(userProfileService.findById(id, token));
+    }
+
+    @PostMapping("/finduserbyid/{id}")
+    public ResponseEntity<UserProfile> findbyId(@PathVariable String id) {
+
+        return ResponseEntity.ok(userProfileService.findById(id).get());
+    }
+
     @PostMapping("/findbytoken")
     public ResponseEntity<UserProfile> findbyToken(@RequestBody FindByToken token) {
         System.out.println(token);

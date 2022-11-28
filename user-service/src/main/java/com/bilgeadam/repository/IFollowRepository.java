@@ -14,4 +14,7 @@ public interface IFollowRepository extends MongoRepository<Follow, String> {
     Optional<Follow> findOptionalByFollowIdAndUserId(String followId, String userId);
 
     Optional<List<Follow>> findOptionalByUserId(String userId);
+
+    Optional<List<Follow>> findOptionalByUserIdIn(List<String> userIdList);
+
 }

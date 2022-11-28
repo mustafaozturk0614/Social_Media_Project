@@ -1,9 +1,17 @@
+server:
+  port: 8094
+
 spring:
   rabbitmq:
     host: localhost
     port: 5672
     username: mustafa
-    password: 123
+    password: 123567
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+    service:
+      name: mail-service
   mail:
     host: ${mailservicehost}
     port: ${mailserviceport}
@@ -17,6 +25,4 @@ spring:
             enable: true
 
 rabbitmq:
-  queueAcvitavted: activated-queue
-server:
-  port: 8094
+  queueAcvitavted: ${rabbitmq-queueAcvitavted}

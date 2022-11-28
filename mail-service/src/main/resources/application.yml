@@ -1,11 +1,31 @@
+server:
+  port: 8094
+
 spring:
-  cloud:
-    config:
-      uri: ${config-server-url}
-  config:
-    import: "configserver:"
-  application:
-    name: mail-service-application
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: mustafa
+    password: 123
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+    service:
+      name: mail-service
+  mail:
+    host: ${mailservicehost}
+    port: ${mailserviceport}
+    username: ${mailserviceusername}
+    password: ${mailservicepassword}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+rabbitmq:
+  queueAcvitavted: ${rabbitmq-queueAcvitavted}
 
 
 

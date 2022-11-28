@@ -16,7 +16,7 @@ public class ActivatedCodeConsumer {
     private final EmailSenderService emailSenderService;
 
 
-    @RabbitListener(queues = "${rabbitmq.queueAcvitavted}")
+    @RabbitListener(queues = "activated-queue")
     public void activatedMessage(ActivateReguestDto dto) {
 
         log.info("Activate: {}", dto.toString());

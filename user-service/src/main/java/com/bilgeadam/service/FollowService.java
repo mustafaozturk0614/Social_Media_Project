@@ -83,13 +83,19 @@ public class FollowService extends ServiceManager<Follow, String> {
 
     }
 
-    public List<UserProfile> findFollowById(String token) {
+    public List<UserProfile> findFollowById(String token, Optional<String> id) {
         Optional<Long> authId = jwtTokenManager.getUserId(token);
         if (authId.isPresent()) {
-            List<String> followsId = userProfileService.findByAuthId(authId.get()).get().getFollows();
+            List<String> followsId;
+            if (id.isPresent()) {
+                followsId = userProfileService.findById(id.get()).get().getFollows();
+            } else {
+                followsId = userProfileService.findByAuthId(authId.get()).get().getFollows();
+            }
+            ;
 
-            return followsId.stream().map(id -> {
-                return userProfileService.findById(id).get();
+            return followsId.stream().map(x -> {
+                return userProfileService.findById(x).get();
             }).collect(Collectors.toList());
         } else {
             throw new UserManagerException(ErrorType.INVALID_TOKEN);
@@ -102,10 +108,10 @@ public class FollowService extends ServiceManager<Follow, String> {
         Optional<Long> id = jwtTokenManager.getUserId(token.getToken());
 
         if (id.isPresent()) {
-            String userId = userProfileService.findByAuthId(id.get()).get().getId();
+            Optional<UserProfile> userProfile = userProfileService.findByAuthId(id.get());
 
 
-            return followRepository.findOptionalByUserId(userId).get().stream().map((x) -> UserProfilePostResponseDto.builder().id(x.getFollowId()).build()).collect(Collectors.toList());
+            return followRepository.findOptionalByUserIdIn(userProfile.get().getFollows()).get().stream().map((x) -> UserProfilePostResponseDto.builder().id(x.getFollowId()).build()).collect(Collectors.toList());
 
         } else {
 
@@ -114,4 +120,6 @@ public class FollowService extends ServiceManager<Follow, String> {
 
 
     }
+
+
 }

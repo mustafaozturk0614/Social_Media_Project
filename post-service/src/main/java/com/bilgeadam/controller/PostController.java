@@ -43,11 +43,9 @@ public class PostController {
     }
 
 
-    @GetMapping("/getmypost/{token}")
-    public ResponseEntity<List<GetAllPost>> getMyPost(@PathVariable String token) {
-
-
-        return ResponseEntity.ok(postService.getMyPost(token));
+    @PostMapping("/getmypost")
+    public ResponseEntity<List<GetAllPost>> getMyPost(@RequestBody FindByToken token) {
+        return ResponseEntity.ok(postService.getMyPost(token.getToken()));
     }
 
     @PostMapping("/getotheruserpost")
@@ -71,9 +69,12 @@ public class PostController {
 
     @PostMapping("/getmyfollowpost")
     public ResponseEntity<List<Post>> myFollowPost(@RequestBody FindByToken token) {
-
-
         return ResponseEntity.ok(postService.myFollowPost(token));
+    }
+
+    @PostMapping("/getmyfollowspost")
+    public ResponseEntity<List<Post>> myFollowsPost(@RequestBody FindByToken token, @RequestParam List<String> userIdList) {
+        return ResponseEntity.ok(postService.myFollowsPost(token, userIdList));
     }
 
 }

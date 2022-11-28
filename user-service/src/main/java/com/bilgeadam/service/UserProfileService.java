@@ -1,6 +1,7 @@
 package com.bilgeadam.service;
 
 import com.bilgeadam.dto.request.ActivateReguestDto;
+import com.bilgeadam.dto.request.FindByToken;
 import com.bilgeadam.dto.request.NewCreateUserDto;
 import com.bilgeadam.dto.request.UpdateRequestDto;
 import com.bilgeadam.dto.response.RoleResponseDto;
@@ -277,6 +278,19 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
             throw new UserManagerException(ErrorType.INVALID_TOKEN);
         }
 
+
+    }
+
+    public UserProfile findById(String id, FindByToken token) {
+        Optional<Long> authId = jwtTokenManager.getUserId(token.getToken());
+        if (authId.isPresent()) {
+
+            return findById(id).orElse(null);
+
+
+        } else {
+            throw new UserManagerException(ErrorType.INVALID_TOKEN);
+        }
 
     }
 
