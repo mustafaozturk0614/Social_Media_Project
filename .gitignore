@@ -14,8 +14,4 @@
 /config-server-git/build/classes/java/main/
 /elestic-service/build/
 /elestic-service/build/classes/java/main/
-/post-service/build/
-/post-service/build/classes/java/main/
-/mail-service/build/
-/mail-service/build/classes/java/main/
 /socialmediaKubernetes/secret.yml
