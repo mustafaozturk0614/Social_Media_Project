@@ -92,7 +92,7 @@ public class FollowService extends ServiceManager<Follow, String> {
             } else {
                 followsId = userProfileService.findByAuthId(authId.get()).get().getFollows();
             }
-            ;
+            
 
             return followsId.stream().map(x -> {
                 return userProfileService.findById(x).get();
