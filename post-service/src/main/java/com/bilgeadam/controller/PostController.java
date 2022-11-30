@@ -72,9 +72,5 @@ public class PostController {
         return ResponseEntity.ok(postService.myFollowPost(token));
     }
 
-    @PostMapping("/getmyfollowspost")
-    public ResponseEntity<List<Post>> myFollowsPost(@RequestBody FindByToken token, @RequestParam List<String> userIdList) {
-        return ResponseEntity.ok(postService.myFollowsPost(token, userIdList));
-    }
 
 }

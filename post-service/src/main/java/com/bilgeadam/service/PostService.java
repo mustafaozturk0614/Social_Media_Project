@@ -128,11 +128,11 @@ public class PostService extends ServiceManager<Post, String> {
     }
 
     public List<Post> myFollowPost(FindByToken token) {
-        System.out.println(token);
+
+     
         try {
 
-            List<UserProfilePostResponseDto> userProfilePostResponseDtos = followManager.findMyFollow(token).getBody();
-            List<String> userIds = userProfilePostResponseDtos.stream().map((x) -> x.getId()).collect(Collectors.toList());
+            List<String> userIds = followManager.findMyFollowPost(token).getBody().stream().map((x) -> x.getId()).collect(Collectors.toList());
 
             return postRepository.findByUserIdIn(userIds);
         } catch (Exception e) {
@@ -143,22 +143,5 @@ public class PostService extends ServiceManager<Post, String> {
 
     }
 
-    public List<Post> myFollowsPost(FindByToken token, List<String> userIdList) {
-        Optional<Long> authid = jwtTokenManager.getUserId(token.getToken());
 
-        if (authid.isPresent()) {
-            if (userIdList.size() > 0) {
-                return postRepository.findByUserIdIn(userIdList);
-            } else {
-                List<Post> posts = new ArrayList<>();
-                return posts;
-            }
-
-        } else {
-
-            throw new PostManagerException((ErrorType.INVALID_TOKEN));
-        }
-
-
-    }
 }

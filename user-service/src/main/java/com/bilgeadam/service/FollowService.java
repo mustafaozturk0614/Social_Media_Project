@@ -83,16 +83,16 @@ public class FollowService extends ServiceManager<Follow, String> {
 
     }
 
-    public List<UserProfile> findFollowById(String token, Optional<String> id) {
+    public List<UserProfile> findFollowById(String token, String id) {
         Optional<Long> authId = jwtTokenManager.getUserId(token);
         if (authId.isPresent()) {
             List<String> followsId;
-            if (id.isPresent()) {
-                followsId = userProfileService.findById(id.get()).get().getFollows();
+            if (id != null) {
+                followsId = userProfileService.findById(id).get().getFollows();
             } else {
                 followsId = userProfileService.findByAuthId(authId.get()).get().getFollows();
             }
-            
+
 
             return followsId.stream().map(x -> {
                 return userProfileService.findById(x).get();
@@ -104,11 +104,19 @@ public class FollowService extends ServiceManager<Follow, String> {
 
     }
 
-    public List<UserProfilePostResponseDto> findMyFollow(FindByToken token) {
+    public List<UserProfilePostResponseDto> findMyFollowPost(FindByToken token) {
         Optional<Long> id = jwtTokenManager.getUserId(token.getToken());
 
         if (id.isPresent()) {
-            Optional<UserProfile> userProfile = userProfileService.findByAuthId(id.get());
+            Optional<UserProfile> userProfile;
+
+            if (token.getId() != null) {
+
+                userProfile = userProfileService.findById(token.getId());
+            } else {
+                userProfile = userProfileService.findByAuthId(id.get());
+
+            }
 
 
             return followRepository.findOptionalByUserIdIn(userProfile.get().getFollows()).get().stream().map((x) -> UserProfilePostResponseDto.builder().id(x.getFollowId()).build()).collect(Collectors.toList());

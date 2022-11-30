@@ -14,7 +14,7 @@ public interface IFollowManager {
 
 
     @PostMapping("/findmyfollows")
-    public ResponseEntity<List<UserProfilePostResponseDto>> findMyFollow(@RequestBody FindByToken mytoken);
+    public ResponseEntity<List<UserProfilePostResponseDto>> findMyFollowPost(@RequestBody FindByToken mytoken);
 
 
 }

@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.bilgeadam.constant.ApiUrls.CREATE;
 import static com.bilgeadam.constant.ApiUrls.FOLLOW;
@@ -40,9 +39,9 @@ public class FollowController {
     }
 
     @PostMapping("/findfollows")
-    public ResponseEntity<List<UserProfile>> findFollowsById(@RequestBody FindByToken token, @RequestParam Optional<String> id) {
-
-        return ResponseEntity.ok(followService.findFollowById(token.getToken(), id));
+    public ResponseEntity<List<UserProfile>> findFollowsById(@RequestBody FindByToken token) {
+   
+        return ResponseEntity.ok(followService.findFollowById(token.getToken(), token.getId()));
     }
 
 
@@ -53,8 +52,8 @@ public class FollowController {
     }
 
     @PostMapping("/findmyfollows")
-    public ResponseEntity<List<UserProfilePostResponseDto>> findMyFollow(@RequestBody FindByToken token) {
+    public ResponseEntity<List<UserProfilePostResponseDto>> findMyFollowPost(@RequestBody FindByToken mytoken) {
 
-        return ResponseEntity.ok(followService.findMyFollow(token));
+        return ResponseEntity.ok(followService.findMyFollowPost(mytoken));
     }
 }

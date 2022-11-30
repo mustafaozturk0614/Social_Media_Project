@@ -149,7 +149,7 @@ public class UserProfileController {
 
     @PostMapping("/findbytoken")
     public ResponseEntity<UserProfile> findbyToken(@RequestBody FindByToken token) {
-        System.out.println(token);
+       
         return ResponseEntity.ok(userProfileService.findByToken(token.getToken()));
     }
 }
