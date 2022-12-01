@@ -130,4 +130,18 @@ public class FollowService extends ServiceManager<Follow, String> {
     }
 
 
+    public List<Follow> findFollowByToken(String token) {
+
+        Optional<Long> authId = jwtTokenManager.getUserId(token);
+
+        if (authId.isPresent()) {
+
+            String id = userProfileService.findByAuthId(authId.get()).get().getId();
+            return followRepository.findOptionalByUserId(id).get();
+        } else {
+
+            throw new UserManagerException(ErrorType.INVALID_TOKEN);
+        }
+
+    }
 }

@@ -40,10 +40,15 @@ public class FollowController {
 
     @PostMapping("/findfollows")
     public ResponseEntity<List<UserProfile>> findFollowsById(@RequestBody FindByToken token) {
-   
+
         return ResponseEntity.ok(followService.findFollowById(token.getToken(), token.getId()));
     }
 
+    @PostMapping("/findfollowsbytoken")
+    public ResponseEntity<List<Follow>> findFollowsByToken(@RequestBody FindByToken token) {
+
+        return ResponseEntity.ok(followService.findFollowByToken(token.getToken()));
+    }
 
     @GetMapping("/findall")
     public ResponseEntity<List<Follow>> findall() {
