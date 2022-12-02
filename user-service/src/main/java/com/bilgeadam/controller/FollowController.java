@@ -25,15 +25,15 @@ public class FollowController {
     private final FollowService followService;
 
     @PostMapping(CREATE)
-    public ResponseEntity<Boolean> createFollow(@RequestBody FollowCreateDto dto) {
-        followService.create(dto);
-        return ResponseEntity.ok(true);
+    public ResponseEntity<Follow> createFollow(@RequestBody FollowCreateDto dto) {
+        ;
+        return ResponseEntity.ok(followService.create(dto));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteFollow(@RequestBody DeleteFollowDto dto) {
+    public ResponseEntity<Follow> deleteFollow(@RequestBody DeleteFollowDto dto) {
 
-
+        System.out.println(dto);
         return ResponseEntity.ok(followService.deleteFollow(dto));
 
     }

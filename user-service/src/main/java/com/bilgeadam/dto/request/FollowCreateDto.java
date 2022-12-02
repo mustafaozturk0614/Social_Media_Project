@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class FollowCreateDto {
-
     String userId;
     String followId;
-
 }

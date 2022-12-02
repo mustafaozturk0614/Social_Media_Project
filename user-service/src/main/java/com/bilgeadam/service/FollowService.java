@@ -55,7 +55,7 @@ public class FollowService extends ServiceManager<Follow, String> {
         return follow;
     }
 
-    public Boolean deleteFollow(DeleteFollowDto dto) {
+    public Follow deleteFollow(DeleteFollowDto dto) {
         Optional<Long> authId = jwtTokenManager.getUserId(dto.getToken());
         if (authId.isPresent()) {
             Optional<UserProfile> userProfile = userProfileService.findByAuthId(authId.get());
@@ -68,7 +68,7 @@ public class FollowService extends ServiceManager<Follow, String> {
                     followUser.get().getFollowers().remove(userProfile.get().getId());
                     userProfileService.save(followUser.get());
                     delete(follow.get());
-                    return true;
+                    return follow.get();
                 } else {
                     throw new UserManagerException(ErrorType.FOLLOW_NOT_FOUND);
                 }
